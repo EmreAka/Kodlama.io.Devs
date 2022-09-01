@@ -1,4 +1,5 @@
 ﻿using Application.Features.ProgrammingLanguages.Dtos;
+using Application.Features.ProgrammingLanguages.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
@@ -12,15 +13,18 @@ public class GetByIdProgrammingLanguageQuery : IRequest<ProgrammingLanguageGetBy
 
     public class GetByIdProgrammingLanguageQueryHandler : IRequestHandler<GetByIdProgrammingLanguageQuery, ProgrammingLanguageGetByIdDto>
     {
-        public IProgrammingLanguageRepository _programmingLanguageRepository { get; set; }
-        public IMapper _mapper { get; set; }
+        private readonly IProgrammingLanguageRepository _programmingLanguageRepository;
+        private readonly IMapper _mapper;
+        private readonly ProgrammingLanguageBusinessRules _programmingLanguageBusinessRules;
 
-        public GetByIdProgrammingLanguageQueryHandler(IProgrammingLanguageRepository programmingLanguageRepository, IMapper mapper)
-            => (_programmingLanguageRepository, _mapper) = (programmingLanguageRepository, mapper);
+        public GetByIdProgrammingLanguageQueryHandler(IProgrammingLanguageRepository programmingLanguageRepository, IMapper mapper, ProgrammingLanguageBusinessRules programmingLanguageBusinessRules)
+            => (_programmingLanguageRepository, _mapper, _programmingLanguageBusinessRules) = (programmingLanguageRepository, mapper, programmingLanguageBusinessRules);
 
         public async Task<ProgrammingLanguageGetByIdDto> Handle(GetByIdProgrammingLanguageQuery request, CancellationToken cancellationToken)
         {
             ProgrammingLanguage? programmingLanguage = await _programmingLanguageRepository.GetAsync(p => p.Id == request.Id);
+
+            _programmingLanguageBusinessRules.ProgrammingLanguageShouldExistWhenRequested(programmingLanguage);
 
             ProgrammingLanguageGetByIdDto programmingLanguageGetByIdDto = _mapper.Map<ProgrammingLanguageGetByIdDto>(programmingLanguage);
 
