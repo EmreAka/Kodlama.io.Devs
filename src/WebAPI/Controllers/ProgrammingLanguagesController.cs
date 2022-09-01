@@ -1,4 +1,5 @@
 ﻿using Application.Features.ProgrammingLanguages.Commands.CreateProgrammingLanguage;
+using Application.Features.ProgrammingLanguages.Commands.DeleteProgrammingLanguage;
 using Application.Features.ProgrammingLanguages.Dtos;
 using Application.Features.ProgrammingLanguages.Models;
 using Application.Features.ProgrammingLanguages.Queries.GetByIdProgrammingLanguage;
@@ -13,7 +14,7 @@ namespace WebAPI.Controllers;
 [ApiController]
 public class ProgrammingLanguagesController : BaseController
 {
-    [HttpPost]
+    [HttpPost("add")]
     public async Task<IActionResult> Add([FromBody] CreateProgrammingLanguageCommand createProgrammingLanguageCommand)
     {
         CreatedProgrammingLanguageDto result = await Mediator.Send(createProgrammingLanguageCommand);
@@ -21,10 +22,18 @@ public class ProgrammingLanguagesController : BaseController
         return Ok(result);
     }
 
+    [HttpPost("delete")]
+    public async Task<IActionResult> Delete([FromBody] DeleteProgrammingLanguageCommand DeleteProgrammingLanguageCommand)
+    {
+        DeletedProgrammingLanguageDto result = await Mediator.Send(DeleteProgrammingLanguageCommand);
+
+        return Ok(result);
+    }
+
     [HttpGet]
     public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
     {
-        GetListProgrammingLanguageQuery getListProgrammingLanguageQuery = new() { PageRequest = pageRequest};
+        GetListProgrammingLanguageQuery getListProgrammingLanguageQuery = new() { PageRequest = pageRequest };
         ProgrammingLanguageListModel result = await Mediator.Send(getListProgrammingLanguageQuery);
 
         return Ok(result);
