@@ -4,8 +4,8 @@ namespace Application.Features.ProgrammingLanguages.Commands.CreateProgrammingLa
 
 public class CreateProgrammingLanguageCommandValidator : AbstractValidator<CreateProgrammingLanguageCommand>
 {
-	public CreateProgrammingLanguageCommandValidator()
-	{
-		RuleFor(p => p.Name).NotEmpty().NotNull();
-	}
+    public CreateProgrammingLanguageCommandValidator()
+    {
+        RuleFor(p => p.Name).NotEmpty().NotNull();
+    }
 }

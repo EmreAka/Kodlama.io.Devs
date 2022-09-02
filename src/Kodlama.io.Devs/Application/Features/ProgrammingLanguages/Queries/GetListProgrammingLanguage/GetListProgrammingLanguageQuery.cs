@@ -12,19 +12,26 @@ public class GetListProgrammingLanguageQuery : IRequest<ProgrammingLanguageListM
 {
     public PageRequest PageRequest { get; set; }
 
-    public class GetListProgrammingLanguageQueryHandler : IRequestHandler<GetListProgrammingLanguageQuery, ProgrammingLanguageListModel>
+    public class
+        GetListProgrammingLanguageQueryHandler : IRequestHandler<GetListProgrammingLanguageQuery,
+            ProgrammingLanguageListModel>
     {
         private readonly IProgrammingLanguageRepository _programmingLanguageRepository;
         private readonly IMapper _mapper;
 
-        public GetListProgrammingLanguageQueryHandler(IProgrammingLanguageRepository programmingLanguageRepository, IMapper mapper)
+        public GetListProgrammingLanguageQueryHandler(IProgrammingLanguageRepository programmingLanguageRepository,
+            IMapper mapper)
             => (_programmingLanguageRepository, _mapper) = (programmingLanguageRepository, mapper);
 
-        public async Task<ProgrammingLanguageListModel> Handle(GetListProgrammingLanguageQuery request, CancellationToken cancellationToken)
+        public async Task<ProgrammingLanguageListModel> Handle(GetListProgrammingLanguageQuery request,
+            CancellationToken cancellationToken)
         {
-            IPaginate<ProgrammingLanguage> programmingLanguages = await _programmingLanguageRepository.GetListAsync(index: request.PageRequest.Page, size: request.PageRequest.PageSize);
+            IPaginate<ProgrammingLanguage> programmingLanguages =
+                await _programmingLanguageRepository.GetListAsync(index: request.PageRequest.Page,
+                    size: request.PageRequest.PageSize);
 
-            ProgrammingLanguageListModel mappedProgrammingLanguageListModel = _mapper.Map<ProgrammingLanguageListModel>(programmingLanguages);
+            ProgrammingLanguageListModel mappedProgrammingLanguageListModel =
+                _mapper.Map<ProgrammingLanguageListModel>(programmingLanguages);
 
             return mappedProgrammingLanguageListModel;
         }

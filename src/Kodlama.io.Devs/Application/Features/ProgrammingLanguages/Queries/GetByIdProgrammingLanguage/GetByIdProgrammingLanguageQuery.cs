@@ -11,22 +11,29 @@ public class GetByIdProgrammingLanguageQuery : IRequest<ProgrammingLanguageGetBy
 {
     public int Id { get; set; }
 
-    public class GetByIdProgrammingLanguageQueryHandler : IRequestHandler<GetByIdProgrammingLanguageQuery, ProgrammingLanguageGetByIdDto>
+    public class
+        GetByIdProgrammingLanguageQueryHandler : IRequestHandler<GetByIdProgrammingLanguageQuery,
+            ProgrammingLanguageGetByIdDto>
     {
         private readonly IProgrammingLanguageRepository _programmingLanguageRepository;
         private readonly IMapper _mapper;
         private readonly ProgrammingLanguageBusinessRules _programmingLanguageBusinessRules;
 
-        public GetByIdProgrammingLanguageQueryHandler(IProgrammingLanguageRepository programmingLanguageRepository, IMapper mapper, ProgrammingLanguageBusinessRules programmingLanguageBusinessRules)
-            => (_programmingLanguageRepository, _mapper, _programmingLanguageBusinessRules) = (programmingLanguageRepository, mapper, programmingLanguageBusinessRules);
+        public GetByIdProgrammingLanguageQueryHandler(IProgrammingLanguageRepository programmingLanguageRepository,
+            IMapper mapper, ProgrammingLanguageBusinessRules programmingLanguageBusinessRules)
+            => (_programmingLanguageRepository, _mapper, _programmingLanguageBusinessRules) = (
+                programmingLanguageRepository, mapper, programmingLanguageBusinessRules);
 
-        public async Task<ProgrammingLanguageGetByIdDto> Handle(GetByIdProgrammingLanguageQuery request, CancellationToken cancellationToken)
+        public async Task<ProgrammingLanguageGetByIdDto> Handle(GetByIdProgrammingLanguageQuery request,
+            CancellationToken cancellationToken)
         {
-            ProgrammingLanguage? programmingLanguage = await _programmingLanguageRepository.GetAsync(p => p.Id == request.Id);
+            ProgrammingLanguage? programmingLanguage =
+                await _programmingLanguageRepository.GetAsync(p => p.Id == request.Id);
 
             _programmingLanguageBusinessRules.ProgrammingLanguageShouldExistWhenRequested(programmingLanguage);
 
-            ProgrammingLanguageGetByIdDto programmingLanguageGetByIdDto = _mapper.Map<ProgrammingLanguageGetByIdDto>(programmingLanguage);
+            ProgrammingLanguageGetByIdDto programmingLanguageGetByIdDto =
+                _mapper.Map<ProgrammingLanguageGetByIdDto>(programmingLanguage);
 
             return programmingLanguageGetByIdDto;
         }

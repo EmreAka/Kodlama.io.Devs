@@ -18,22 +18,27 @@ public class DeleteProgrammingLanguageCommand : IRequest<DeletedProgrammingLangu
         private readonly IProgrammingLanguageRepository _programmingLanguageRepository;
         private readonly ProgrammingLanguageBusinessRules _programmingLanguageBusinessRules;
 
-        public DeleteProgrammingLanguageComandHandler(IMapper mapper, IProgrammingLanguageRepository programmingLanguageRepository,
+        public DeleteProgrammingLanguageComandHandler(IMapper mapper,
+            IProgrammingLanguageRepository programmingLanguageRepository,
             ProgrammingLanguageBusinessRules programmingLanguageBusinessRules)
-                => (_mapper, _programmingLanguageRepository, _programmingLanguageBusinessRules) =
-                        (mapper, programmingLanguageRepository, programmingLanguageBusinessRules);
+            => (_mapper, _programmingLanguageRepository, _programmingLanguageBusinessRules) =
+                (mapper, programmingLanguageRepository, programmingLanguageBusinessRules);
 
-        public async Task<DeletedProgrammingLanguageDto> Handle(DeleteProgrammingLanguageCommand request, CancellationToken cancellationToken)
+        public async Task<DeletedProgrammingLanguageDto> Handle(DeleteProgrammingLanguageCommand request,
+            CancellationToken cancellationToken)
         {
-            ProgrammingLanguage? programmingLanguage = await _programmingLanguageRepository.GetAsync(p => p.Id == request.Id);
+            ProgrammingLanguage? programmingLanguage =
+                await _programmingLanguageRepository.GetAsync(p => p.Id == request.Id);
 
             _programmingLanguageBusinessRules.ProgrammingLanguageShouldExistWhenRequested(programmingLanguage);
 
             //ProgrammingLanguage programmingLanguage = _mapper.Map<ProgrammingLanguage>(request);
 
-            ProgrammingLanguage deletedProgrammingLanguage = await _programmingLanguageRepository.DeleteAsync(programmingLanguage);
+            ProgrammingLanguage deletedProgrammingLanguage =
+                await _programmingLanguageRepository.DeleteAsync(programmingLanguage);
 
-            DeletedProgrammingLanguageDto deletedProgrammingLanguageDto = _mapper.Map<DeletedProgrammingLanguageDto>(deletedProgrammingLanguage);
+            DeletedProgrammingLanguageDto deletedProgrammingLanguageDto =
+                _mapper.Map<DeletedProgrammingLanguageDto>(deletedProgrammingLanguage);
 
             return deletedProgrammingLanguageDto;
         }
