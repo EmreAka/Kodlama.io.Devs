@@ -22,8 +22,8 @@ public class UpdateProgrammingLanguageCommand : IRequest<UpdatedProgrammingLangu
         public UpdateProgrammingLanguageCommandHandler(IMapper mapper,
             IProgrammingLanguageRepository programmingLanguageRepository,
             ProgrammingLanguageBusinessRules programmingLanguageBusinessRules)
-                => (_mapper, _programmingLanguageRepository, _programmingLanguageBusinessRules) =
-                        (mapper, programmingLanguageRepository, programmingLanguageBusinessRules);
+            => (_mapper, _programmingLanguageRepository, _programmingLanguageBusinessRules) =
+                (mapper, programmingLanguageRepository, programmingLanguageBusinessRules);
 
         public async Task<UpdatedProgrammingLanguageDto> Handle(UpdateProgrammingLanguageCommand request,
             CancellationToken cancellationToken)
