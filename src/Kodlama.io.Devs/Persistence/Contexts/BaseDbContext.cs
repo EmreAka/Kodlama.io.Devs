@@ -65,7 +65,6 @@ public class BaseDbContext : DbContext
         modelBuilder.Entity<Developer>(p =>
         {
             p.ToTable("Developers");
-            p.Property(p => p.GitHubProfileId).HasColumnName("GitHubProfileId");
             p.HasMany(p => p.GitHubProfiles);
         });
 
