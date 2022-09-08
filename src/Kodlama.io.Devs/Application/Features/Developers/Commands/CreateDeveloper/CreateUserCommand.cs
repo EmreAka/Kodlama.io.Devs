@@ -31,19 +31,6 @@ public class CreateDeveloperCommand : IRequest<TokenDto>
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(request.Password, out passwordHash, out passwordSalt);
 
-            //var user = new User
-            //{
-            //    FirstName = request.FirstName,
-            //    LastName = request.LastName,
-            //    Email = request.Email,
-            //    PasswordHash = passwordHash,
-            //    PasswordSalt = passwordSalt,
-            //    AuthenticatorType = Core.Security.Enums.AuthenticatorType.Email,
-            //    Status = true,
-            //};
-
-            //var createdUser = await _userRepository.AddAsync(user);
-
             var developer = new Developer
             {
                 FirstName = request.FirstName,
