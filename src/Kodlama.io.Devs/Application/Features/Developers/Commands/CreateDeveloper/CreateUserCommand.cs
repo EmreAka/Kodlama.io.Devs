@@ -9,14 +9,14 @@ using MediatR;
 
 namespace Application.Features.Developers.Commands.CreateDeveloper;
 
-public class CreateUserCommand : IRequest<TokenDto>
+public class CreateDeveloperCommand : IRequest<TokenDto>
 {
     public string Email { get; set; }
     public string Password { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
 
-    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, TokenDto>
+    public class CreateUserCommandHandler : IRequestHandler<CreateDeveloperCommand, TokenDto>
     {
         private readonly IUserRepository _userRepository;
         private readonly IDeveloperRepository _developerRepository;
@@ -26,7 +26,7 @@ public class CreateUserCommand : IRequest<TokenDto>
         public CreateUserCommandHandler(IUserRepository userRepository, IMapper mapper, ITokenHelper tokenHelper, IDeveloperRepository developerRepository)
             => (_userRepository, _mapper, _tokenHelper, _developerRepository) = (userRepository, mapper, tokenHelper, developerRepository);
 
-        public async Task<TokenDto> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<TokenDto> Handle(CreateDeveloperCommand request, CancellationToken cancellationToken)
         {
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(request.Password, out passwordHash, out passwordSalt);

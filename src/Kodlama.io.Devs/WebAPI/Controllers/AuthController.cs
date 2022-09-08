@@ -16,17 +16,17 @@ namespace WebAPI.Controllers
             => _mediator = mediator;
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody]CreateUserCommand createUserCommand)
+        public async Task<IActionResult> Register([FromBody] CreateDeveloperCommand createDeveloperCommand)
         {
-            var result = await _mediator.Send(createUserCommand);
+            var result = await _mediator.Send(createDeveloperCommand);
 
             return Ok(result);
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginUserCommand loginUserCommand)
+        public async Task<IActionResult> Login([FromBody] LoginDeveloperCommand loginDeveloperCommand)
         {
-            var result = await _mediator.Send(loginUserCommand);
+            var result = await _mediator.Send(loginDeveloperCommand);
 
             return Ok(result);
         }

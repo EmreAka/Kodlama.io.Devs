@@ -8,12 +8,12 @@ using MediatR;
 
 namespace Application.Features.Developers.Commands.LoginDeveloper;
 
-public class LoginUserCommand : IRequest<TokenDto>
+public class LoginDeveloperCommand : IRequest<TokenDto>
 {
     public string Email { get; set; }
     public string Password { get; set; }
 
-    public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, TokenDto>
+    public class LoginUserCommandHandler : IRequestHandler<LoginDeveloperCommand, TokenDto>
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
@@ -22,7 +22,7 @@ public class LoginUserCommand : IRequest<TokenDto>
         public LoginUserCommandHandler(IUserRepository userRepository, IMapper mapper, ITokenHelper tokenHelper)
             => (_mapper, _userRepository, _tokenHelper) = (mapper, userRepository, tokenHelper);
 
-        public async Task<TokenDto> Handle(LoginUserCommand request, CancellationToken cancellationToken)
+        public async Task<TokenDto> Handle(LoginDeveloperCommand request, CancellationToken cancellationToken)
         {
             var user = await _userRepository.GetAsync(u => u.Email.ToLower() == request.Email.ToLower());
 
