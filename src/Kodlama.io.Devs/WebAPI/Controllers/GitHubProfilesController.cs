@@ -1,6 +1,8 @@
 ﻿using Application.Features.GitHubProfiles.Commands.CreateGitHubProfile;
 using Application.Features.GitHubProfiles.Commands.DeleteGitHubProfile;
 using Application.Features.GitHubProfiles.Commands.UpdateGitHubProfile;
+using Application.Features.GitHubProfiles.Queries.GetListGitHubProfile;
+using Core.Application.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,6 +37,16 @@ public class GitHubProfilesController : ControllerBase
     public async Task<IActionResult> Delete([FromRoute]DeleteGitHubProfileCommand deleteGitHubProfileCommand)
     {
         var result = await _mediator.Send(deleteGitHubProfileCommand);
+
+        return Ok(result);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetList([FromQuery]PageRequest pageRequest)
+    {
+        GetListGitHubProfileQuery getListGitHubProfileQuery = new() { PageRequest = pageRequest };
+
+        var result = await _mediator.Send(getListGitHubProfileQuery);
 
         return Ok(result);
     }
