@@ -1,9 +1,11 @@
 ﻿using Application.Features.Technologies.Commands.CreateTechnology;
+using Application.Features.Technologies.Commands.UpdateTechnology;
 using Application.Features.Technologies.Dtos;
 using Application.Features.Technologies.Models;
 using AutoMapper;
 using Core.Persistence.Paging;
 using Domain.Entities;
+using static Application.Features.Technologies.Commands.UpdateTechnology.UpdateTechnologyCommand;
 
 namespace Application.Features.Technologies.Profiles;
 
@@ -19,5 +21,8 @@ public class MappingProfiles : Profile
 
         CreateMap<Technology, CreateTechnologyCommand>().ReverseMap();
         CreateMap<Technology, CreatedTechnologyDto>().ReverseMap();
+
+        CreateMap<Technology, UpdateTechnologyCommand>().ReverseMap();
+        CreateMap<Technology, UpdatedTechnologyDto>().ReverseMap();
     }
 }

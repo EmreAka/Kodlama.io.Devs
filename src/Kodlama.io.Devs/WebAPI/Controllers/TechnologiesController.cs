@@ -1,4 +1,6 @@
-﻿using Application.Features.Technologies.Commands.CreateTechnology;
+﻿using Application.Features.ProgrammingLanguages.Commands.UpdateProgrammingLanguage;
+using Application.Features.Technologies.Commands.CreateTechnology;
+using Application.Features.Technologies.Commands.UpdateTechnology;
 using Application.Features.Technologies.Queries.GetListTechnology;
 using Core.Application.Requests;
 using MediatR;
@@ -19,6 +21,13 @@ public class TechnologiesController : Controller
     public async Task<IActionResult> Add([FromBody]CreateTechnologyCommand createTechnologyCommand)
     {
         var result = await _mediator.Send(createTechnologyCommand);
+        return Ok(result);
+    }
+
+    [HttpPost("update")]
+    public async Task<IActionResult> Update([FromBody] UpdateTechnologyCommand updateTechnologyCommand)
+    {
+        var result = await _mediator.Send(updateTechnologyCommand);
         return Ok(result);
     }
 
