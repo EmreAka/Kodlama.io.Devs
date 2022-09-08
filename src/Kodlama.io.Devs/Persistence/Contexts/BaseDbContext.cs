@@ -12,7 +12,7 @@ public class BaseDbContext : DbContext
     public DbSet<Technology> Technologies { get; set; }
 
     //security
-    public DbSet<User> Users { get; set; }
+    public DbSet<Core.Security.Entities.User> Users { get; set; }
     public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
     public DbSet<OperationClaim> OperationClaims { get; set; }
 
@@ -45,7 +45,7 @@ public class BaseDbContext : DbContext
             p.HasOne(p => p.ProgrammingLanguage);
         });
 
-        modelBuilder.Entity<User>(p =>
+        modelBuilder.Entity<Core.Security.Entities.User>(p =>
         {
             p.ToTable("Users").HasKey(k => k.Id);
             p.Property(p => p.Id).HasColumnName("Id");
@@ -58,6 +58,13 @@ public class BaseDbContext : DbContext
             p.Property(p => p.AuthenticatorType).HasColumnName("AuthenticatorType");
             p.HasMany(p => p.UserOperationClaims);
             p.HasMany(p => p.RefreshTokens);
+        });
+
+        modelBuilder.Entity<Domain.Entities.User>(p =>
+        {
+            p.ToTable("Developers");
+            p.Property(p => p.GitHubProfileId).HasColumnName("GitHubProfileId");
+            p.HasMany(p => p.GitHubProfiles);
         });
 
         modelBuilder.Entity<OperationClaim>(p =>
@@ -74,6 +81,15 @@ public class BaseDbContext : DbContext
             p.Property(p => p.UserId).HasColumnName("UserId");
             p.Property(p => p.OperationClaimId).HasColumnName("OperationClaimId");
             p.HasOne(p => p.OperationClaim);
+            p.HasOne(p => p.User);
+        });
+
+        modelBuilder.Entity<GitHubProfile>(p =>
+        {
+            p.ToTable("GitHubProfiles").HasKey(k => k.Id);
+            p.Property(p => p.Id).HasColumnName("Id");
+            p.Property(p => p.UserId).HasColumnName("UserId");
+            p.Property(p => p.ProfileUrl).HasColumnName("ProfileUrl");
             p.HasOne(p => p.User);
         });
 
