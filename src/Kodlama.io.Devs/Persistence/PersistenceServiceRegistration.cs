@@ -15,6 +15,7 @@ public static class PersistenceServiceRegistration
             options.UseSqlServer(configuration.GetConnectionString("MSSQLServer")));
 
         services.AddScoped<IProgrammingLanguageRepository, ProgrammingLanguageRepository>();
+        services.AddScoped<ITechnologyRepository, TechnologyRepository>();
 
         return services;
     }
