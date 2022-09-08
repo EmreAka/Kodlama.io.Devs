@@ -1,5 +1,4 @@
-﻿using Application.Features.ProgrammingLanguages.Commands.UpdateProgrammingLanguage;
-using Application.Features.Technologies.Commands.CreateTechnology;
+﻿using Application.Features.Technologies.Commands.CreateTechnology;
 using Application.Features.Technologies.Commands.UpdateTechnology;
 using Application.Features.Technologies.Queries.GetListTechnology;
 using Core.Application.Requests;
