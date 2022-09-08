@@ -11,7 +11,7 @@ namespace Application.Features.Technologies.Queries.GetListTechnology;
 
 public class GetTechnologyListQuery : IRequest<TechnologyListModel>
 {
-    public PageRequest? PageRequest { get; set; }
+    public PageRequest PageRequest { get; set; }
 
     public class GetTechnologyListQueryHandler : IRequestHandler<GetTechnologyListQuery, TechnologyListModel>
     {
