@@ -5,12 +5,13 @@ using Core.Application.Requests;
 using Core.Persistence.Paging;
 using Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Technologies.Queries.GetListTechnology;
 
 public class GetTechnologyListQuery : IRequest<TechnologyListModel>
 {
-    public PageRequest PageRequest { get; set; }
+    public PageRequest? PageRequest { get; set; }
 
     public class GetTechnologyListQueryHandler : IRequestHandler<GetTechnologyListQuery, TechnologyListModel>
     {
@@ -24,7 +25,8 @@ public class GetTechnologyListQuery : IRequest<TechnologyListModel>
             CancellationToken cancellationToken)
         {
             IPaginate<Technology> technologies = await _technologyRepository.GetListAsync(
-                index: request.PageRequest.Page,
+                include: m => m.Include(c => c.ProgrammingLanguage!),
+                index: request.PageRequest!.Page,
                 size: request.PageRequest.PageSize);
 
             TechnologyListModel technologyListModel = _mapper.Map<TechnologyListModel>(technologies);
