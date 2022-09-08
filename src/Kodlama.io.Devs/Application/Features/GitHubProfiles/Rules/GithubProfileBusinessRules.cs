@@ -16,4 +16,9 @@ public class GithubProfileBusinessRules
         GitHubProfile result = await _gitHubProfileRepository.GetAsync(b => b.DeveloperId == userId);
         if (result != null) throw new BusinessException("There is already a GitHub profile assigned");
     }
+    
+    public void ProgrammingLanguageShouldExistWhenUpdated(GitHubProfile gitHubProfile)
+    {
+        if (gitHubProfile == null) throw new BusinessException("Requested GitHub profile does not exist");
+    }
 }
