@@ -27,7 +27,7 @@ public class GetByIdProgrammingLanguageQuery : IRequest<ProgrammingLanguageGetBy
         public async Task<ProgrammingLanguageGetByIdDto> Handle(GetByIdProgrammingLanguageQuery request,
             CancellationToken cancellationToken)
         {
-            ProgrammingLanguage? programmingLanguage =
+            ProgrammingLanguage programmingLanguage =
                 await _programmingLanguageRepository.GetAsync(p => p.Id == request.Id);
 
             _programmingLanguageBusinessRules.ProgrammingLanguageShouldExistWhenRequested(programmingLanguage);

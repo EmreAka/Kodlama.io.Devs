@@ -28,7 +28,7 @@ public class UpdateProgrammingLanguageCommand : IRequest<UpdatedProgrammingLangu
         public async Task<UpdatedProgrammingLanguageDto> Handle(UpdateProgrammingLanguageCommand request,
             CancellationToken cancellationToken)
         {
-            ProgrammingLanguage? programmingLanguage = await _programmingLanguageRepository.GetAsync(p =>
+            ProgrammingLanguage programmingLanguage = await _programmingLanguageRepository.GetAsync(p =>
                 p.Id == request.Id);
 
             _programmingLanguageBusinessRules.ProgrammingLanguageShouldExistWhenRequested(programmingLanguage);
