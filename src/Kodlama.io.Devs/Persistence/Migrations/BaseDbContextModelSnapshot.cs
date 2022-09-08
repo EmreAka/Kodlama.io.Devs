@@ -167,16 +167,13 @@ namespace Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("DeveloperId")
-                        .HasColumnType("int");
+                    b.Property<int>("DeveloperId")
+                        .HasColumnType("int")
+                        .HasColumnName("DeveloperId");
 
                     b.Property<string>("ProfileUrl")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ProfileUrl");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int")
-                        .HasColumnName("UserId");
 
                     b.HasKey("Id");
 
@@ -309,7 +306,9 @@ namespace Persistence.Migrations
                 {
                     b.HasOne("Domain.Entities.Developer", "Developer")
                         .WithMany("GitHubProfiles")
-                        .HasForeignKey("DeveloperId");
+                        .HasForeignKey("DeveloperId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Developer");
                 });

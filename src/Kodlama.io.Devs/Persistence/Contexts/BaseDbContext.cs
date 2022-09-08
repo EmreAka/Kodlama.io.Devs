@@ -90,7 +90,7 @@ public class BaseDbContext : DbContext
         {
             p.ToTable("GitHubProfiles").HasKey(k => k.Id);
             p.Property(p => p.Id).HasColumnName("Id");
-            p.Property(p => p.UserId).HasColumnName("UserId");
+            p.Property(p => p.DeveloperId).HasColumnName("DeveloperId");
             p.Property(p => p.ProfileUrl).HasColumnName("ProfileUrl");
             p.HasOne(p => p.Developer);
         });
