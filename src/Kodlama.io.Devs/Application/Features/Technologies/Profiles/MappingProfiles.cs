@@ -1,4 +1,5 @@
-﻿using Application.Features.Technologies.Dtos;
+﻿using Application.Features.Technologies.Commands.CreateTechnology;
+using Application.Features.Technologies.Dtos;
 using Application.Features.Technologies.Models;
 using AutoMapper;
 using Core.Persistence.Paging;
@@ -11,8 +12,12 @@ public class MappingProfiles : Profile
     public MappingProfiles()
     {
         CreateMap<Technology, TechnologyListDto>()
-                .ForMember(c => c.ProgrammingLanguageName, opt => opt.MapFrom(c => c.ProgrammingLanguage.Name)).ReverseMap();
+                .ForMember(c => c.ProgrammingLanguageName,
+                opt => opt.MapFrom(c => c.ProgrammingLanguage!.Name)).ReverseMap();
 
         CreateMap<IPaginate<Technology>, TechnologyListModel>().ReverseMap();
+
+        CreateMap<Technology, CreateTechnologyCommand>().ReverseMap();
+        CreateMap<Technology, CreatedTechnologyDto>().ReverseMap();
     }
 }
