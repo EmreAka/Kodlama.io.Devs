@@ -20,7 +20,7 @@ public class ProgrammingLanguagesController : ControllerBase
     public ProgrammingLanguagesController(IMediator mediator)
         => _mediator = mediator;
 
-    [HttpPost("add")]
+    [HttpPost]
     public async Task<IActionResult> Add([FromBody] CreateProgrammingLanguageCommand createProgrammingLanguageCommand)
     {
         CreatedProgrammingLanguageDto result = await _mediator.Send(createProgrammingLanguageCommand);
@@ -28,7 +28,7 @@ public class ProgrammingLanguagesController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPost("delete")]
+    [HttpDelete]
     public async Task<IActionResult> Delete([FromBody] DeleteProgrammingLanguageCommand deleteProgrammingLanguageCommand)
     {
         DeletedProgrammingLanguageDto result = await _mediator.Send(deleteProgrammingLanguageCommand);
@@ -36,7 +36,7 @@ public class ProgrammingLanguagesController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPost("update")]
+    [HttpPut]
     public async Task<IActionResult> Update([FromBody] UpdateProgrammingLanguageCommand updateProgrammingLanguageCommand)
     {
         UpdatedProgrammingLanguageDto result = await _mediator.Send(updateProgrammingLanguageCommand);
@@ -54,7 +54,7 @@ public class ProgrammingLanguagesController : ControllerBase
     }
 
     [HttpGet("{Id}")]
-    public async Task<IActionResult> GetList([FromRoute] GetByIdProgrammingLanguageQuery getByIdProgrammingLanguageQuery)
+    public async Task<IActionResult> GetById([FromRoute] GetByIdProgrammingLanguageQuery getByIdProgrammingLanguageQuery)
     {
         ProgrammingLanguageGetByIdDto result = await _mediator.Send(getByIdProgrammingLanguageQuery);
 

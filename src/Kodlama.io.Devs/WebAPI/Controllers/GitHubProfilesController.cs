@@ -17,7 +17,7 @@ public class GitHubProfilesController : ControllerBase
     public GitHubProfilesController(IMediator mediator)
         => _mediator = mediator;
 
-    [HttpPost("add")]
+    [HttpPost]
     public async Task<IActionResult> Add(CreateGitHubProfileCommand createGitHubProfileCommand)
     {
         var result = await _mediator.Send(createGitHubProfileCommand);
@@ -25,7 +25,7 @@ public class GitHubProfilesController : ControllerBase
         return Ok(result);
     }
     
-    [HttpPost("update")]
+    [HttpPut]
     public async Task<IActionResult> Update(UpdateGitHubProfileCommand updateGitHubProfileCommand)
     {
         var result = await _mediator.Send(updateGitHubProfileCommand);
@@ -33,7 +33,7 @@ public class GitHubProfilesController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPost("{Id}")]
+    [HttpDelete("{Id}")]
     public async Task<IActionResult> Delete([FromRoute]DeleteGitHubProfileCommand deleteGitHubProfileCommand)
     {
         var result = await _mediator.Send(deleteGitHubProfileCommand);

@@ -24,15 +24,15 @@ public class TechnologiesController : Controller
         return Ok(result);
     }
 
-    [HttpPost("update")]
+    [HttpPut]
     public async Task<IActionResult> Update([FromBody] UpdateTechnologyCommand updateTechnologyCommand)
     {
         var result = await _mediator.Send(updateTechnologyCommand);
         return Ok(result);
     }
 
-    [HttpPost("{Id}")]
-    public async Task<IActionResult> Delete([FromRoute] DeleteTechnologyCommand deleteTechnologyCommand)
+    [HttpDelete]
+    public async Task<IActionResult> Delete([FromBody] DeleteTechnologyCommand deleteTechnologyCommand)
     {
         var result = await _mediator.Send(deleteTechnologyCommand);
         return Ok(result);
