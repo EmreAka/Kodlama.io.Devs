@@ -32,7 +32,7 @@ public class TechnologiesController : Controller
     }
 
     [HttpPost("{Id}")]
-    public async Task<IActionResult> Update([FromRoute] DeleteTechnologyCommand deleteTechnologyCommand)
+    public async Task<IActionResult> Delete([FromRoute] DeleteTechnologyCommand deleteTechnologyCommand)
     {
         var result = await _mediator.Send(deleteTechnologyCommand);
         return Ok(result);
