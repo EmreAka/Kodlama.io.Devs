@@ -1,11 +1,31 @@
 using Application;
 using Core.CrossCuttingConcerns.Exceptions;
 using Core.Security;
+using Core.Security.Encryption;
+using Core.Security.JWT;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+TokenOptions? tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidIssuer = tokenOptions.Issuer,
+        ValidAudience = tokenOptions.Audience,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey),
+        ClockSkew = TimeSpan.Zero
+    };
+});
 
 builder.Services.AddControllers();
 builder.Services.AddApplicationServices();
