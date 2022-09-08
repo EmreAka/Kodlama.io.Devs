@@ -11,10 +11,8 @@ public class MappingProfiles : Profile
     public MappingProfiles()
     {
         CreateMap<Technology, TechnologyListDto>()
-            .ForMember(c => c.ProgrammingLanguageName,
-                opt =>
-                    opt.MapFrom(c => c.ProgrammingLanguage!.Name)).ReverseMap();
-        
+                .ForMember(c => c.ProgrammingLanguageName, opt => opt.MapFrom(c => c.ProgrammingLanguage.Name)).ReverseMap();
+
         CreateMap<IPaginate<Technology>, TechnologyListModel>().ReverseMap();
     }
 }

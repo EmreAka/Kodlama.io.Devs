@@ -8,7 +8,11 @@ public class Technology : Entity
     public string Name { get; set; }
 
     public virtual ProgrammingLanguage? ProgrammingLanguage { get; set; }
+    public Technology()
+    {
 
-    public Technology(int id, int programmingLanguageId, string name) : base(id)
+    }
+
+    public Technology(int id, int programmingLanguageId, string name) : this()
         => (Id, ProgrammingLanguageId, Name) = (id, programmingLanguageId, name);
 }

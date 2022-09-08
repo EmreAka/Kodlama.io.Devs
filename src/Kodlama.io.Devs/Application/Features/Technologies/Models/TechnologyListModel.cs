@@ -3,7 +3,7 @@ using Core.Persistence.Paging;
 
 namespace Application.Features.Technologies.Models;
 
-public class TechnologyListModel
+public class TechnologyListModel : BasePageableModel
 {
-    public IPaginate<TechnologyListDto> Items { get; set; }
+    public IList<TechnologyListDto> Items { get; set; }
 }

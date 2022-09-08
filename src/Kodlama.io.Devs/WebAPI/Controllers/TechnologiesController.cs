@@ -15,7 +15,7 @@ public class TechnologiesController : Controller
         => _mediator = mediator;
 
     [HttpGet]
-    public async Task<IActionResult> GetList(PageRequest pageRequest)
+    public async Task<IActionResult> GetList([FromQuery]PageRequest pageRequest)
     {
         GetTechnologyListQuery getTechnologyListQuery = new GetTechnologyListQuery(){PageRequest = pageRequest};
 
