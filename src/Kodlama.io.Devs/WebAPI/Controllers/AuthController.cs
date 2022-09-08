@@ -1,5 +1,5 @@
-﻿using Application.Features.Users.Commands.CreateUser;
-using Application.Features.Users.Commands.LoginUser;
+﻿using Application.Features.Developers.Commands.CreateDeveloper;
+using Application.Features.Developers.Commands.LoginDeveloper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

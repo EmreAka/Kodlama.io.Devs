@@ -1,4 +1,4 @@
-﻿namespace Application.Features.Users.Dtos;
+﻿namespace Application.Features.Developers.Dtos;
 
 public class TokenDto
 {

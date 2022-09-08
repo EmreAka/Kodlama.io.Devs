@@ -1,4 +1,4 @@
-﻿using Application.Features.Users.Dtos;
+﻿using Application.Features.Developers.Dtos;
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.Security.Entities;
@@ -7,7 +7,7 @@ using Core.Security.JWT;
 using Domain.Entities;
 using MediatR;
 
-namespace Application.Features.Users.Commands.CreateUser;
+namespace Application.Features.Developers.Commands.CreateDeveloper;
 
 public class CreateUserCommand : IRequest<TokenDto>
 {
