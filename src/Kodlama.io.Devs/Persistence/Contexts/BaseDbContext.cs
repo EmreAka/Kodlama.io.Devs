@@ -12,9 +12,11 @@ public class BaseDbContext : DbContext
     public DbSet<Technology> Technologies { get; set; }
 
     //security
-    public DbSet<Core.Security.Entities.User> Users { get; set; }
+    public DbSet<User> Users { get; set; }
     public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
     public DbSet<OperationClaim> OperationClaims { get; set; }
+
+    public DbSet<Developer> Developers { get; set; }
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration) : base(dbContextOptions)
         => (Configuration) = (configuration);
@@ -45,7 +47,7 @@ public class BaseDbContext : DbContext
             p.HasOne(p => p.ProgrammingLanguage);
         });
 
-        modelBuilder.Entity<Core.Security.Entities.User>(p =>
+        modelBuilder.Entity<User>(p =>
         {
             p.ToTable("Users").HasKey(k => k.Id);
             p.Property(p => p.Id).HasColumnName("Id");
@@ -60,7 +62,7 @@ public class BaseDbContext : DbContext
             p.HasMany(p => p.RefreshTokens);
         });
 
-        modelBuilder.Entity<Domain.Entities.User>(p =>
+        modelBuilder.Entity<Developer>(p =>
         {
             p.ToTable("Developers");
             p.Property(p => p.GitHubProfileId).HasColumnName("GitHubProfileId");
@@ -90,7 +92,7 @@ public class BaseDbContext : DbContext
             p.Property(p => p.Id).HasColumnName("Id");
             p.Property(p => p.UserId).HasColumnName("UserId");
             p.Property(p => p.ProfileUrl).HasColumnName("ProfileUrl");
-            p.HasOne(p => p.User);
+            p.HasOne(p => p.Developer);
         });
 
         ProgrammingLanguage[] programmingLanguagesSeeds = { new(1, "C#"), new(2, "Java"), new(3, "Dart") };

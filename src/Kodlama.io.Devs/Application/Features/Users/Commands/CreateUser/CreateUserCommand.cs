@@ -4,6 +4,7 @@ using AutoMapper;
 using Core.Security.Entities;
 using Core.Security.Hashing;
 using Core.Security.JWT;
+using Domain.Entities;
 using MediatR;
 
 namespace Application.Features.Users.Commands.CreateUser;
@@ -18,18 +19,32 @@ public class CreateUserCommand : IRequest<TokenDto>
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, TokenDto>
     {
         private readonly IUserRepository _userRepository;
+        private readonly IDeveloperRepository _developerRepository;
         private readonly IMapper _mapper;
         private readonly ITokenHelper _tokenHelper;
 
-        public CreateUserCommandHandler(IUserRepository userRepository, IMapper mapper, ITokenHelper tokenHelper)
-            => (_userRepository, _mapper, _tokenHelper) = (userRepository, mapper, tokenHelper);
+        public CreateUserCommandHandler(IUserRepository userRepository, IMapper mapper, ITokenHelper tokenHelper, IDeveloperRepository developerRepository)
+            => (_userRepository, _mapper, _tokenHelper, _developerRepository) = (userRepository, mapper, tokenHelper, developerRepository);
 
         public async Task<TokenDto> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(request.Password, out passwordHash, out passwordSalt);
 
-            var user = new User
+            //var user = new User
+            //{
+            //    FirstName = request.FirstName,
+            //    LastName = request.LastName,
+            //    Email = request.Email,
+            //    PasswordHash = passwordHash,
+            //    PasswordSalt = passwordSalt,
+            //    AuthenticatorType = Core.Security.Enums.AuthenticatorType.Email,
+            //    Status = true,
+            //};
+
+            //var createdUser = await _userRepository.AddAsync(user);
+
+            var developer = new Developer
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,
@@ -40,9 +55,9 @@ public class CreateUserCommand : IRequest<TokenDto>
                 Status = true,
             };
 
-            var createdUser = await _userRepository.AddAsync(user);
+            var createdDeveloper = await _developerRepository.AddAsync(developer);
 
-            var token = _tokenHelper.CreateToken(user, new List<OperationClaim>());
+            var token = _tokenHelper.CreateToken(developer, new List<OperationClaim>());
 
             return new() { Token = token.Token, Expiration = token.Expiration };
         }
