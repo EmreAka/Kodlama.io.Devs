@@ -28,16 +28,6 @@ public class CreateUserCommand : IRequest<TokenDto>
         {
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(request.Password, out passwordHash, out passwordSalt);
-            //var customer = new Customer()
-            //{
-            //    Email = customerForRegisterDto.Email,
-            //    FirstName = customerForRegisterDto.FirstName,
-            //    LastName = customerForRegisterDto.LastName,
-            //    PasswordSalt = passwordSalt,
-            //    PasswordHash = passwordHash,
-            //    Status = true,
-            //    CompanyName = customerForRegisterDto.CompanyName
-            //};
 
             var user = new User
             {
