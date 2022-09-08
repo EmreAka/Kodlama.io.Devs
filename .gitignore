@@ -364,3 +364,7 @@ FodyWeavers.xsd
 
 #.idea folder
 .idea/
+
+#.vs folder
+.vs/
+.vscode/
