@@ -21,4 +21,9 @@ public class GithubProfileBusinessRules
     {
         if (gitHubProfile == null) throw new BusinessException("Requested GitHub profile does not exist");
     }
+    
+    public void ProgrammingLanguageShouldExistWhenDeleted(GitHubProfile gitHubProfile)
+    {
+        if (gitHubProfile == null) throw new BusinessException("Requested GitHub profile does not exist");
+    }
 }
