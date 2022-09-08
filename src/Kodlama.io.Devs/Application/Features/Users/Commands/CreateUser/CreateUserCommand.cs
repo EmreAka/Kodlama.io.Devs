@@ -6,7 +6,7 @@ using Core.Security.Hashing;
 using Core.Security.JWT;
 using MediatR;
 
-namespace Application.Features.Users.Commands;
+namespace Application.Features.Users.Commands.CreateUser;
 
 public class CreateUserCommand : IRequest<TokenDto>
 {
@@ -23,7 +23,7 @@ public class CreateUserCommand : IRequest<TokenDto>
 
         public CreateUserCommandHandler(IUserRepository userRepository, IMapper mapper, ITokenHelper tokenHelper)
             => (_userRepository, _mapper, _tokenHelper) = (userRepository, mapper, tokenHelper);
-        
+
         public async Task<TokenDto> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             byte[] passwordHash, passwordSalt;
