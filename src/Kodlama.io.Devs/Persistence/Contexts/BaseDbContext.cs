@@ -71,7 +71,10 @@ public class BaseDbContext : DbContext
         {
             p.ToTable("UserOperationClaims").HasKey(k => k.Id);
             p.Property(p => p.Id).HasColumnName("Id");
-
+            p.Property(p => p.UserId).HasColumnName("UserId");
+            p.Property(p => p.OperationClaimId).HasColumnName("OperationClaimId");
+            p.HasOne(p => p.OperationClaim);
+            p.HasOne(p => p.User);
         });
 
         ProgrammingLanguage[] programmingLanguagesSeeds = { new(1, "C#"), new(2, "Java"), new(3, "Dart") };
