@@ -1,4 +1,5 @@
 ﻿using Application.Features.Technologies.Commands.CreateTechnology;
+using Application.Features.Technologies.Commands.DeleteTechnology;
 using Application.Features.Technologies.Commands.UpdateTechnology;
 using Application.Features.Technologies.Queries.GetListTechnology;
 using Core.Application.Requests;
@@ -27,6 +28,13 @@ public class TechnologiesController : Controller
     public async Task<IActionResult> Update([FromBody] UpdateTechnologyCommand updateTechnologyCommand)
     {
         var result = await _mediator.Send(updateTechnologyCommand);
+        return Ok(result);
+    }
+
+    [HttpPost("{Id}")]
+    public async Task<IActionResult> Update([FromRoute] DeleteTechnologyCommand deleteTechnologyCommand)
+    {
+        var result = await _mediator.Send(deleteTechnologyCommand);
         return Ok(result);
     }
 
