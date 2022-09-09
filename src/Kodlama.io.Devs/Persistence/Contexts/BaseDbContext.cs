@@ -56,7 +56,7 @@ public class BaseDbContext : DbContext
             p.Property(p => p.Email).HasColumnName("Email");
             p.Property(p => p.PasswordHash).HasColumnName("PasswordHash");
             p.Property(p => p.PasswordSalt).HasColumnName("PasswordSalt");
-            p.Property(p => p.Status).HasColumnName("Status");
+            p.Property(p => p.Status).HasColumnName("Status").HasDefaultValue(true);
             p.Property(p => p.AuthenticatorType).HasColumnName("AuthenticatorType");
             p.HasMany(p => p.UserOperationClaims);
             p.HasMany(p => p.RefreshTokens);
@@ -97,7 +97,7 @@ public class BaseDbContext : DbContext
         ProgrammingLanguage[] programmingLanguagesSeeds = { new(1, "C#"), new(2, "Java"), new(3, "Dart") };
         modelBuilder.Entity<ProgrammingLanguage>().HasData(programmingLanguagesSeeds);
 
-        Technology[] technologies = { new(1, 1, "ASP.NET CORE"), new(2, 1, ".NET MAUI"), new(3, 3, "Flutter")};
+        Technology[] technologies = { new(1, 1, "ASP.NET CORE"), new(2, 1, ".NET MAUI"), new(3, 3, "Flutter") };
         modelBuilder.Entity<Technology>().HasData(technologies);
     }
 }

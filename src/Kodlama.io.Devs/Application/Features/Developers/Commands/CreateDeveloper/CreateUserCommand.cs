@@ -18,29 +18,21 @@ public class CreateDeveloperCommand : IRequest<TokenDto>
 
     public class CreateUserCommandHandler : IRequestHandler<CreateDeveloperCommand, TokenDto>
     {
-        private readonly IUserRepository _userRepository;
         private readonly IDeveloperRepository _developerRepository;
         private readonly IMapper _mapper;
         private readonly ITokenHelper _tokenHelper;
 
-        public CreateUserCommandHandler(IUserRepository userRepository, IMapper mapper, ITokenHelper tokenHelper, IDeveloperRepository developerRepository)
-            => (_userRepository, _mapper, _tokenHelper, _developerRepository) = (userRepository, mapper, tokenHelper, developerRepository);
+        public CreateUserCommandHandler(IMapper mapper, ITokenHelper tokenHelper, IDeveloperRepository developerRepository)
+            => (_mapper, _tokenHelper, _developerRepository) = (mapper, tokenHelper, developerRepository);
 
         public async Task<TokenDto> Handle(CreateDeveloperCommand request, CancellationToken cancellationToken)
         {
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(request.Password, out passwordHash, out passwordSalt);
 
-            var developer = new Developer
-            {
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                Email = request.Email,
-                PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt,
-                AuthenticatorType = Core.Security.Enums.AuthenticatorType.Email,
-                Status = true,
-            };
+            Developer developer = _mapper.Map<Developer>(request);
+            developer.PasswordHash = passwordHash;
+            developer.PasswordSalt = passwordSalt;
 
             var createdDeveloper = await _developerRepository.AddAsync(developer);
 

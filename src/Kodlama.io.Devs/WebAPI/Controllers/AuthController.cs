@@ -15,7 +15,7 @@ namespace WebAPI.Controllers
         public AuthController(IMediator mediator)
             => _mediator = mediator;
 
-        [HttpPost]
+        [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] CreateDeveloperCommand createDeveloperCommand)
         {
             var result = await _mediator.Send(createDeveloperCommand);
@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDeveloperCommand loginDeveloperCommand)
         {
             var result = await _mediator.Send(loginDeveloperCommand);
