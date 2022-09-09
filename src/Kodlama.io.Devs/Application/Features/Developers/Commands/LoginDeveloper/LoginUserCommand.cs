@@ -5,6 +5,7 @@ using Core.Security.Entities;
 using Core.Security.Hashing;
 using Core.Security.JWT;
 using MediatR;
+using Application.Features.Developers.Rules;
 
 namespace Application.Features.Developers.Commands.LoginDeveloper;
 
@@ -18,24 +19,26 @@ public class LoginDeveloperCommand : IRequest<TokenDto>
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly ITokenHelper _tokenHelper;
+        private readonly DeveloperBusinessRules _developerBusinessRules;
 
-        public LoginUserCommandHandler(IUserRepository userRepository, IMapper mapper, ITokenHelper tokenHelper)
-            => (_mapper, _userRepository, _tokenHelper) = (mapper, userRepository, tokenHelper);
+        public LoginUserCommandHandler(IUserRepository userRepository, IMapper mapper,
+         ITokenHelper tokenHelper, DeveloperBusinessRules developerBusinessRules)
+            => (_mapper, _userRepository, _tokenHelper, _developerBusinessRules)
+            = (mapper, userRepository, tokenHelper, developerBusinessRules);
 
         public async Task<TokenDto> Handle(LoginDeveloperCommand request, CancellationToken cancellationToken)
         {
             var user = await _userRepository.GetAsync(u => u.Email.ToLower() == request.Email.ToLower());
 
-            //business rule
+            _developerBusinessRules.UserShouldExist(user);
 
-            var result = HashingHelper.VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt);
+            _developerBusinessRules.UserCredentialsShouldMatch(request.Password, user.PasswordHash, user.PasswordSalt);
 
-            if (!result)
-                throw new Exception("Wrong Credentials");
+            AccessToken token = _tokenHelper.CreateToken(user, new List<OperationClaim>());
 
-            var token = _tokenHelper.CreateToken(user, new List<OperationClaim>());
+            TokenDto tokenDto = _mapper.Map<TokenDto>(token);
 
-            return new() { Token = token.Token, Expiration = token.Expiration };
+            return tokenDto;
         }
     }
 }

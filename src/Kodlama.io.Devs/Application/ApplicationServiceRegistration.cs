@@ -5,6 +5,7 @@ using System.Reflection;
 using FluentValidation;
 using Application.Features.ProgrammingLanguages.Rules;
 using Application.Features.GitHubProfiles.Rules;
+using Application.Features.Developers.Rules;
 
 namespace Application;
 
@@ -17,6 +18,7 @@ public static class ApplicationServiceRegistration
 
         services.AddScoped<ProgrammingLanguageBusinessRules>();
         services.AddScoped<GithubProfileBusinessRules>();
+        services.AddScoped<DeveloperBusinessRules>();
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
