@@ -6,14 +6,12 @@ using Core.Security.JWT;
 using MediatR;
 using Application.Features.Developers.Rules;
 using Microsoft.EntityFrameworkCore;
+using Core.Security.Dtos;
 
 namespace Application.Features.Developers.Commands.LoginDeveloper;
 
-public class LoginDeveloperCommand : IRequest<TokenDto>
+public class LoginDeveloperCommand : UserForLoginDto, IRequest<TokenDto>
 {
-    public string Email { get; set; }
-    public string Password { get; set; }
-
     public class LoginUserCommandHandler : IRequestHandler<LoginDeveloperCommand, TokenDto>
     {
         private readonly IUserRepository _userRepository;

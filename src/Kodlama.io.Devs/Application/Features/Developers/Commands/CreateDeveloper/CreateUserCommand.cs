@@ -7,16 +7,12 @@ using Core.Security.Hashing;
 using Core.Security.JWT;
 using Domain.Entities;
 using MediatR;
+using Core.Security.Dtos;
 
 namespace Application.Features.Developers.Commands.CreateDeveloper;
 
-public class CreateDeveloperCommand : IRequest<TokenDto>
+public class CreateDeveloperCommand : UserForRegisterDto, IRequest<TokenDto>
 {
-    public string Email { get; set; }
-    public string Password { get; set; }
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-
     public class CreateUserCommandHandler : IRequestHandler<CreateDeveloperCommand, TokenDto>
     {
         private readonly IDeveloperRepository _developerRepository;
