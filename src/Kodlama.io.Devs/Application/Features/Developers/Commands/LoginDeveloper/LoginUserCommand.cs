@@ -5,6 +5,7 @@ using Core.Security.Entities;
 using Core.Security.JWT;
 using MediatR;
 using Application.Features.Developers.Rules;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Developers.Commands.LoginDeveloper;
 
@@ -27,13 +28,22 @@ public class LoginDeveloperCommand : IRequest<TokenDto>
 
         public async Task<TokenDto> Handle(LoginDeveloperCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetAsync(u => u.Email.ToLower() == request.Email.ToLower());
+            var user = await _userRepository.GetAsync(
+                u => u.Email.ToLower() == request.Email.ToLower(),
+                include: m => m.Include(c => c.UserOperationClaims).ThenInclude(x => x.OperationClaim));
+
+            var operationClaims = new List<OperationClaim>() { };
+
+            foreach (var userOperationClaim in user.UserOperationClaims)
+            {
+                operationClaims.Add(userOperationClaim.OperationClaim);
+            }
 
             _developerBusinessRules.UserShouldExist(user);
 
             _developerBusinessRules.UserCredentialsShouldMatch(request.Password, user.PasswordHash, user.PasswordSalt);
 
-            AccessToken token = _tokenHelper.CreateToken(user, new List<OperationClaim>());
+            AccessToken token = _tokenHelper.CreateToken(user, operationClaims);
 
             TokenDto tokenDto = _mapper.Map<TokenDto>(token);
 
