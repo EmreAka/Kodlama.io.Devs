@@ -2,9 +2,9 @@ using FluentValidation;
 
 namespace Application.Features.GitHubProfiles.Commands.UpdateGitHubProfile;
 
-public class UpdateGitHubProfileValidator : AbstractValidator<UpdateGitHubProfileCommand>
+public class UpdateGitHubProfileCommandValidator : AbstractValidator<UpdateGitHubProfileCommand>
 {
-    public UpdateGitHubProfileValidator()
+    public UpdateGitHubProfileCommandValidator()
     {
         RuleFor(g => g.Id).NotNull();
         RuleFor(g => g.ProfileUrl).NotNull().NotEmpty();

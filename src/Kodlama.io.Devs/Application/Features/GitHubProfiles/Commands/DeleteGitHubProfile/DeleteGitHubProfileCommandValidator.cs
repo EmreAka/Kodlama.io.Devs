@@ -2,9 +2,9 @@ using FluentValidation;
 
 namespace Application.Features.GitHubProfiles.Commands.DeleteGitHubProfile;
 
-public class DeleteGitHubProfileValidator : AbstractValidator<DeleteGitHubProfileCommand>
+public class DeleteGitHubProfileCommandValidator : AbstractValidator<DeleteGitHubProfileCommand>
 {
-    public DeleteGitHubProfileValidator()
+    public DeleteGitHubProfileCommandValidator()
     {
         RuleFor(g => g.Id).NotNull();
     }
