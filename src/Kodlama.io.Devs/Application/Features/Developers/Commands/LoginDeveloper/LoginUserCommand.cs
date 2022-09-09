@@ -2,7 +2,6 @@
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.Security.Entities;
-using Core.Security.Hashing;
 using Core.Security.JWT;
 using MediatR;
 using Application.Features.Developers.Rules;
