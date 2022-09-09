@@ -4,7 +4,6 @@ using Application.Features.Technologies.Commands.UpdateTechnology;
 using Application.Features.Technologies.Queries.GetListTechnology;
 using Core.Application.Requests;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
@@ -40,7 +39,6 @@ public class TechnologiesController : Controller
     }
 
     [HttpGet]
-    [Authorize]
     public async Task<IActionResult> GetList([FromQuery]PageRequest pageRequest)
     {
         GetTechnologyListQuery getTechnologyListQuery = new GetTechnologyListQuery(){PageRequest = pageRequest};
