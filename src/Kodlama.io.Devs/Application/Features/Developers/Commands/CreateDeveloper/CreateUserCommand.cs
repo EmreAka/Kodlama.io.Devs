@@ -1,5 +1,6 @@
 ﻿using Application.Features.Developers.Dtos;
 using Application.Services.Repositories;
+using Application.Features.Developers.Rules;
 using AutoMapper;
 using Core.Security.Entities;
 using Core.Security.Hashing;
@@ -21,12 +22,15 @@ public class CreateDeveloperCommand : IRequest<TokenDto>
         private readonly IDeveloperRepository _developerRepository;
         private readonly IMapper _mapper;
         private readonly ITokenHelper _tokenHelper;
+        private readonly DeveloperBusinessRules _developerBusinessRules;
 
-        public CreateUserCommandHandler(IMapper mapper, ITokenHelper tokenHelper, IDeveloperRepository developerRepository)
-            => (_mapper, _tokenHelper, _developerRepository) = (mapper, tokenHelper, developerRepository);
+        public CreateUserCommandHandler(IMapper mapper, ITokenHelper tokenHelper, IDeveloperRepository developerRepository, DeveloperBusinessRules developerBusinessRules)
+            => (_mapper, _tokenHelper, _developerRepository, _developerBusinessRules) = (mapper, tokenHelper, developerRepository, developerBusinessRules);
 
         public async Task<TokenDto> Handle(CreateDeveloperCommand request, CancellationToken cancellationToken)
         {
+            await _developerBusinessRules.EmailCanNotBeDuplicatedWhenInserted(request.Email);
+
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(request.Password, out passwordHash, out passwordSalt);
 

@@ -22,9 +22,9 @@ public class DeveloperBusinessRules
         if (!result) throw new BusinessException("Wrong credentials");
     }
 
-    public async void EmailCanNotBeDuplicatedWhenInserted(string email)
+    public async Task EmailCanNotBeDuplicatedWhenInserted(string email)
     {
         var result = await _userRepository.GetAsync(u => u.Email.ToLower().Equals(email.ToLower()));
-        if (result == null) throw new BusinessException("This email is already registered");
+        if (result != null) throw new BusinessException("This email is already registered");
     }
 }
