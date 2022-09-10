@@ -1,5 +1,6 @@
 ﻿using Application.Features.Technologies.Dtos;
 using Application.Services.Repositories;
+using Application.Features.Technologies.Rules;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
@@ -14,14 +15,18 @@ public class DeleteTechnologyCommand : IRequest<DeletedTechnologyDto>
     {
         private readonly IMapper _mapper;
         private readonly ITechnologyRepository _technologyRepository;
-        public DeleteTechnologyCommandHandler(ITechnologyRepository technologyRepository, IMapper mapper)
-            => (_mapper, _technologyRepository) = (mapper, technologyRepository);
+        private readonly TechnologyBusinessRules _technologyBusinessRules;
+        public DeleteTechnologyCommandHandler(ITechnologyRepository technologyRepository,
+            IMapper mapper, TechnologyBusinessRules technologyBusinessRules)
+            => (_mapper, _technologyRepository, _technologyBusinessRules)
+            = (mapper, technologyRepository, technologyBusinessRules);
 
         public async Task<DeletedTechnologyDto> Handle(DeleteTechnologyCommand request, CancellationToken cancellationToken)
         {
             Technology technology = await _technologyRepository.GetAsync(t => t.Id == request.Id);
 
             //business rules
+            _technologyBusinessRules.TechnologyShouldExistToDelete(technology);
 
             Technology deletedTechnology = await _technologyRepository.DeleteAsync(_mapper.Map(request, technology));
 
