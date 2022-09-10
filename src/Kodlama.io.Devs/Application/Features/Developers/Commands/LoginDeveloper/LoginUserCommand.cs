@@ -20,9 +20,9 @@ public class LoginDeveloperCommand : UserForLoginDto, IRequest<TokenDto>
         private readonly DeveloperBusinessRules _developerBusinessRules;
 
         public LoginUserCommandHandler(IUserRepository userRepository, IMapper mapper,
-         ITokenHelper tokenHelper, DeveloperBusinessRules developerBusinessRules)
+            ITokenHelper tokenHelper, DeveloperBusinessRules developerBusinessRules)
             => (_mapper, _userRepository, _tokenHelper, _developerBusinessRules)
-            = (mapper, userRepository, tokenHelper, developerBusinessRules);
+                = (mapper, userRepository, tokenHelper, developerBusinessRules);
 
         public async Task<TokenDto> Handle(LoginDeveloperCommand request, CancellationToken cancellationToken)
         {
