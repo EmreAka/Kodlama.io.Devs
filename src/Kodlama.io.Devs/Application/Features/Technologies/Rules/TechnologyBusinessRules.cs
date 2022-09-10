@@ -10,7 +10,7 @@ public class TechnologyBusinessRules
     public TechnologyBusinessRules(ITechnologyRepository technologyRepository)
         => _technologyRepository = technologyRepository;
 
-    public void TechnologyShouldExistToDelete(Technology technology)
+    public void TechnologyShouldExist(Technology technology)
     {
         if (technology == null) throw new BusinessException("This technology doesn't exist");
     }

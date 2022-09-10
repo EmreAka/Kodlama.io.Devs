@@ -26,7 +26,7 @@ public class DeleteTechnologyCommand : IRequest<DeletedTechnologyDto>
             Technology technology = await _technologyRepository.GetAsync(t => t.Id == request.Id);
 
             //business rules
-            _technologyBusinessRules.TechnologyShouldExistToDelete(technology);
+            _technologyBusinessRules.TechnologyShouldExist(technology);
 
             Technology deletedTechnology = await _technologyRepository.DeleteAsync(_mapper.Map(request, technology));
 
