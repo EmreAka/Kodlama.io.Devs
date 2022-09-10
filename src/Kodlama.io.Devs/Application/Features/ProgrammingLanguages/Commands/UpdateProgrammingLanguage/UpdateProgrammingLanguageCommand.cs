@@ -33,12 +33,8 @@ public class UpdateProgrammingLanguageCommand : IRequest<UpdatedProgrammingLangu
 
             _programmingLanguageBusinessRules.ProgrammingLanguageShouldExistWhenRequested(programmingLanguage);
 
-            //programmingLanguage = _mapper.Map<ProgrammingLanguage>(request);
-
-            programmingLanguage.Name = request.Name;
-
             ProgrammingLanguage updatedProgrammingLanguage = await _programmingLanguageRepository
-                .UpdateAsync(programmingLanguage);
+                .UpdateAsync(_mapper.Map(request, programmingLanguage));
 
             UpdatedProgrammingLanguageDto updatedProgrammingLanguageDto = _mapper
                 .Map<UpdatedProgrammingLanguageDto>(updatedProgrammingLanguage);

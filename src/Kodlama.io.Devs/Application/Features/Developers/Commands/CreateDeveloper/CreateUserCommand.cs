@@ -20,8 +20,10 @@ public class CreateDeveloperCommand : UserForRegisterDto, IRequest<TokenDto>
         private readonly ITokenHelper _tokenHelper;
         private readonly DeveloperBusinessRules _developerBusinessRules;
 
-        public CreateUserCommandHandler(IMapper mapper, ITokenHelper tokenHelper, IDeveloperRepository developerRepository, DeveloperBusinessRules developerBusinessRules)
-            => (_mapper, _tokenHelper, _developerRepository, _developerBusinessRules) = (mapper, tokenHelper, developerRepository, developerBusinessRules);
+        public CreateUserCommandHandler(IMapper mapper, ITokenHelper tokenHelper,
+            IDeveloperRepository developerRepository, DeveloperBusinessRules developerBusinessRules)
+            => (_mapper, _tokenHelper, _developerRepository, _developerBusinessRules) =
+                (mapper, tokenHelper, developerRepository, developerBusinessRules);
 
         public async Task<TokenDto> Handle(CreateDeveloperCommand request, CancellationToken cancellationToken)
         {
@@ -38,7 +40,9 @@ public class CreateDeveloperCommand : UserForRegisterDto, IRequest<TokenDto>
 
             var token = _tokenHelper.CreateToken(developer, new List<OperationClaim>());
 
-            return new() { Token = token.Token, Expiration = token.Expiration };
+            var createdToken = _mapper.Map<TokenDto>(token);
+
+            return createdToken;
         }
     }
 }
