@@ -30,15 +30,7 @@ public class LoginDeveloperCommand : UserForLoginDto, IRequest<TokenDto>
                 u => u.Email.ToLower() == request.Email.ToLower(),
                 include: m => m.Include(c => c.UserOperationClaims).ThenInclude(x => x.OperationClaim));
 
-            // var user = await _userRepository.GetListAsync(
-            //     include: m => m.Include(c => c.UserOperationClaims).ThenInclude(x => x.OperationClaim));
-
-            List<OperationClaim> operationClaims = new List<OperationClaim>() { };
-
-            foreach (var userOperationClaim in user.UserOperationClaims)
-            {
-                operationClaims.Add(userOperationClaim.OperationClaim);
-            }
+            var operationClaims = user.UserOperationClaims.Select(x => x.OperationClaim).ToList();
 
             _developerBusinessRules.UserShouldExist(user);
 
