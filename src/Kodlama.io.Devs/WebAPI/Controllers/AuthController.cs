@@ -15,15 +15,15 @@ namespace WebAPI.Controllers
         public AuthController(IMediator mediator)
             => _mediator = mediator;
 
-        [HttpPost("register")]
+        [HttpPost("signup")]
         public async Task<IActionResult> Register([FromBody] CreateDeveloperCommand createDeveloperCommand)
         {
-            var result = await _mediator.Send(createDeveloperCommand);
 
-            return Ok(result);
+
+            var result = await _mediator.Send(createDeveloperCommand); return Ok(result);
         }
 
-        [HttpPost("login")]
+        [HttpPost("signin")]
         public async Task<IActionResult> Login([FromBody] LoginDeveloperCommand loginDeveloperCommand)
         {
             var result = await _mediator.Send(loginDeveloperCommand);
