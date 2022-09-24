@@ -3,15 +3,15 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Core.Application.Pipelines.Authorization;
 using Core.Application.Requests;
+using Core.Security.Attributes;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Developers.Queries.GetListUser;
 
-public class GetUserListQuery: PageRequest, IRequest<UserListModel>, ISecuredRequest
+[Authorize(Roles = new[] { "admin" })]
+public class GetUserListQuery : PageRequest, IRequest<UserListModel>, ISecuredRequest
 {
-    public string[] Roles { get; } = new string[1] { "admin" };
-
     public class GetUsersListQueryHandler : IRequestHandler<GetUserListQuery, UserListModel>
     {
         private readonly IUserRepository _userRepository;
@@ -19,14 +19,14 @@ public class GetUserListQuery: PageRequest, IRequest<UserListModel>, ISecuredReq
 
         public GetUsersListQueryHandler(IUserRepository userRepository, IMapper mapper)
             => (_userRepository, _mapper) = (userRepository, mapper);
-        
+
         public async Task<UserListModel> Handle(GetUserListQuery request, CancellationToken cancellationToken)
         {
             var users = await _userRepository.GetListAsync(
                 include: m => m.Include(c => c.UserOperationClaims).ThenInclude(c => c.OperationClaim),
                 index: request.Page,
                 size: request.PageSize);
-            
+
             var userListModel = _mapper.Map<UserListModel>(users);
 
             return userListModel;

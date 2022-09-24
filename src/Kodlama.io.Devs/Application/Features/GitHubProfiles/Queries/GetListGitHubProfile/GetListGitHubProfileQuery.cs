@@ -4,17 +4,15 @@ using AutoMapper;
 using Core.Application.Pipelines.Authorization;
 using Core.Application.Requests;
 using Core.Persistence.Paging;
+using Core.Security.Attributes;
 using Domain.Entities;
 using MediatR;
 
 namespace Application.Features.GitHubProfiles.Queries.GetListGitHubProfile;
 
-public class GetListGitHubProfileQuery : IRequest<GithubProfileListModel>, ISecuredRequest
+[Authorize(Roles = new[] { "admin" })]
+public class GetListGitHubProfileQuery : PageRequest ,IRequest<GithubProfileListModel>, ISecuredRequest
 {
-    public PageRequest PageRequest { get; set; }
-
-    public string[] Roles { get; } = new string[1] { "admin" };
-
     public class GetListGitHubProfileQueryHandler : IRequestHandler<GetListGitHubProfileQuery, GithubProfileListModel>
     {
         private readonly IMapper _mapper;
@@ -27,7 +25,7 @@ public class GetListGitHubProfileQuery : IRequest<GithubProfileListModel>, ISecu
             CancellationToken cancellationToken)
         {
             IPaginate<GitHubProfile> profiles = await _gitHubProfileRepository
-                .GetListAsync(index: request.PageRequest.Page, size: request.PageRequest.PageSize);
+                .GetListAsync(index: request.Page, size: request.PageSize);
 
             GithubProfileListModel githubProfileListModel = _mapper.Map<GithubProfileListModel>(profiles);
 
