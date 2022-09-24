@@ -19,10 +19,12 @@ public class GetListGitHubProfileQuery : IRequest<GithubProfileListModel>, ISecu
     {
         private readonly IMapper _mapper;
         private readonly IGitHubProfileRepository _gitHubProfileRepository;
+
         public GetListGitHubProfileQueryHandler(IMapper mapper, IGitHubProfileRepository gitHubProfileRepository)
             => (_mapper, _gitHubProfileRepository) = (mapper, gitHubProfileRepository);
 
-        public async Task<GithubProfileListModel> Handle(GetListGitHubProfileQuery request, CancellationToken cancellationToken)
+        public async Task<GithubProfileListModel> Handle(GetListGitHubProfileQuery request,
+            CancellationToken cancellationToken)
         {
             IPaginate<GitHubProfile> profiles = await _gitHubProfileRepository
                 .GetListAsync(index: request.PageRequest.Page, size: request.PageRequest.PageSize);

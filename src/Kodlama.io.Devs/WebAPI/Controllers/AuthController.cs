@@ -1,5 +1,6 @@
 ﻿using Application.Features.Developers.Commands.CreateDeveloper;
 using Application.Features.Developers.Commands.LoginDeveloper;
+using Application.Features.Developers.Queries.GetListUser;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +28,14 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> Login([FromBody] LoginDeveloperCommand loginDeveloperCommand)
         {
             var result = await _mediator.Send(loginDeveloperCommand);
+
+            return Ok(result);
+        }
+
+        [HttpGet()]
+        public async Task<IActionResult> GetAll([FromQuery]GetUserListQuery query)
+        {
+            var result = await _mediator.Send(query);
 
             return Ok(result);
         }
