@@ -42,9 +42,11 @@ public class GitHubProfilesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetList([FromQuery]GetListGitHubProfileQuery query)
+    public async Task<IActionResult> GetList([FromQuery]PageRequest pageRequest)
     {
-        var result = await _mediator.Send(query);
+        GetListGitHubProfileQuery getListGitHubProfileQuery = new() { PageRequest = pageRequest };
+
+        var result = await _mediator.Send(getListGitHubProfileQuery);
 
         return Ok(result);
     }

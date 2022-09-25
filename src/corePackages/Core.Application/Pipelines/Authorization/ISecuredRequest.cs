@@ -2,5 +2,5 @@
 
 public interface ISecuredRequest
 {
-    // public string[] Roles { get; }
+    public string[] Roles { get; }
 }

@@ -3,16 +3,15 @@ using Application.Features.ProgrammingLanguages.Rules;
 using Core.Application.Pipelines.Authorization;
 using Application.Services.Repositories;
 using AutoMapper;
-using Core.Security.Attributes;
 using Domain.Entities;
 using MediatR;
 
 namespace Application.Features.ProgrammingLanguages.Commands.CreateProgrammingLanguage;
 
-[Authorize(Roles = new[] { "admin" })]
 public class CreateProgrammingLanguageCommand : IRequest<CreatedProgrammingLanguageDto>, ISecuredRequest
 {
     public string Name { get; set; }
+    public string[] Roles { get; } = new string[1] { "admin" };
 
     public class
         CreateProgrammingLanguageHandler : IRequestHandler<CreateProgrammingLanguageCommand,
