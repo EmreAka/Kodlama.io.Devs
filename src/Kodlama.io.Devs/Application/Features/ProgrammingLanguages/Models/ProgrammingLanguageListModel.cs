@@ -5,5 +5,5 @@ namespace Application.Features.ProgrammingLanguages.Models;
 
 public class ProgrammingLanguageListModel: BasePageableModel
 {
-    public IList<ProgrammingLanguageListDto> Items { get; set; }
+    public ProgrammingLanguageListDto[] Items { get; set; }
 }

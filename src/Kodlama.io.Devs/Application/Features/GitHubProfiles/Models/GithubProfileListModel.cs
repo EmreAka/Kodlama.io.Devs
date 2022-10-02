@@ -5,5 +5,5 @@ namespace Application.Features.GitHubProfiles.Models;
 
 public class GithubProfileListModel : BasePageableModel
 {
-    public IList<GithubProfileListDto> Items { get; set; }
+    public GithubProfileListDto[] Items { get; set; }
 }

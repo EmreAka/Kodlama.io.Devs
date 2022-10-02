@@ -4,5 +4,5 @@ namespace Application.Features.Developers.Models;
 
 public class UserListModel
 {
-    public List<UserListDto> Items { get; set; }
+    public UserListDto[] Items { get; set; }
 }
