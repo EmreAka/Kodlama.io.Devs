@@ -19,7 +19,9 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IDeveloperRepository, DeveloperRepository>();
         services.AddScoped<IGitHubProfileRepository, GitHubProfileRepository>();
-
+        services.AddScoped<IUserOperationClaimRepository, UserOperationClaimRepository>();
+        services.AddScoped<IOperationClaimRepository, OperationClaimRepository>();
+        services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
         return services;
     }
 }

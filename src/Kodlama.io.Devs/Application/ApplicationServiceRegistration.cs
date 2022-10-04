@@ -9,6 +9,7 @@ using Application.Features.Developers.Rules;
 using Microsoft.AspNetCore.Http;
 using Core.Application.Pipelines.Authorization;
 using Application.Features.Technologies.Rules;
+using Application.Services.AuthService;
 
 namespace Application;
 
@@ -23,6 +24,8 @@ public static class ApplicationServiceRegistration
         services.AddScoped<GithubProfileBusinessRules>();
         services.AddScoped<DeveloperBusinessRules>();
         services.AddScoped<TechnologyBusinessRules>();
+        services.AddScoped<IAuthService, AuthManager>();
+        
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
