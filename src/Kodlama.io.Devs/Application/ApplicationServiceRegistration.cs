@@ -6,6 +6,7 @@ using FluentValidation;
 using Application.Features.ProgrammingLanguages.Rules;
 using Application.Features.GitHubProfiles.Rules;
 using Application.Features.Developers.Rules;
+using Application.Features.OperationClaims.Rules;
 using Microsoft.AspNetCore.Http;
 using Core.Application.Pipelines.Authorization;
 using Application.Features.Technologies.Rules;
@@ -24,6 +25,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<GithubProfileBusinessRules>();
         services.AddScoped<DeveloperBusinessRules>();
         services.AddScoped<TechnologyBusinessRules>();
+        services.AddScoped<OperationClaimBusinessRules>();
         services.AddScoped<IAuthService, AuthManager>();
         
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
