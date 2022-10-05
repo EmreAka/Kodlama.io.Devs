@@ -1,5 +1,6 @@
 ﻿using Application.Services.Repositories;
 using Core.CrossCuttingConcerns.Exceptions;
+using Core.Domain.Entities;
 
 namespace Application.Features.UserOperationClaims.Rules;
 
@@ -24,5 +25,11 @@ public class UserOperationClaimBusinessRules
         var result = await _operationClaimRepository.GetAsync(o => o.Id == operationClaimId);
         if (result is null)
             throw new BusinessException("This operation claim does not exist");
+    }
+
+    public void UserOperationClaimShouldExistToDelete(UserOperationClaim userOperationClaims)
+    {
+        if (userOperationClaims is null)
+            throw new BusinessException("User operation claim does not exist");
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Application.Features.UserOperationClaims.Commands.CreateUserOperationClaim;
+using Application.Features.UserOperationClaims.Commands.DeleteUserOperationClaim;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,5 +20,13 @@ public class UserOperationClaimsController : Controller
         var result = await _mediator.Send(createUserOperationClaimCommand);
 
         return Created("", result);
+    }
+    
+    [HttpDelete()]
+    public async Task<IActionResult> Delete([FromBody] DeleteUserOperationClaimCommand deleteUserOperationClaimCommand)
+    {
+        var result = await _mediator.Send(deleteUserOperationClaimCommand);
+
+        return Ok(result);
     }
 }
