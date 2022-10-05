@@ -16,12 +16,7 @@
     <Folder Include="Features\Developers\Rules\" />
     <Folder Include="Features\Developers\Queries\" />
     <Folder Include="Features\Developers\Profiles\" />
-    <Folder Include="Features\UserOperationClaims\Commands" />
-    <Folder Include="Features\UserOperationClaims\Dtos" />
-    <Folder Include="Features\UserOperationClaims\Models" />
     <Folder Include="Features\UserOperationClaims\Profiles" />
-    <Folder Include="Features\UserOperationClaims\Queries" />
-    <Folder Include="Features\UserOperationClaims\Rules" />
   </ItemGroup>
 
   <ItemGroup>
