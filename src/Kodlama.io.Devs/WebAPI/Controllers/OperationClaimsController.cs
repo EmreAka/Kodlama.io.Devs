@@ -1,5 +1,6 @@
 ﻿using Application.Features.OperationClaims.Commands.CreateOperationClaim;
 using Application.Features.OperationClaims.Commands.DeleteOperationClaim;
+using Application.Features.OperationClaims.Commands.UpdateOperationClaim;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,9 +24,17 @@ public class OperationClaimsController : Controller
     }
     
     [HttpDelete()]
-    public async Task<IActionResult> Add([FromBody] DeleteOperationClaimCommand deleteOperationClaimCommand)
+    public async Task<IActionResult> Delete([FromBody] DeleteOperationClaimCommand deleteOperationClaimCommand)
     {
         var result = await _mediator.Send(deleteOperationClaimCommand);
+
+        return Ok(result);
+    }
+    
+    [HttpPut()]
+    public async Task<IActionResult> Update([FromBody] UpdateOperationClaimCommand updateOperationClaimCommand)
+    {
+        var result = await _mediator.Send(updateOperationClaimCommand);
 
         return Ok(result);
     }

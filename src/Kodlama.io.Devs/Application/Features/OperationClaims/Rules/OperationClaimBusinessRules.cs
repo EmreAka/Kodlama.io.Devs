@@ -25,4 +25,10 @@ public class OperationClaimBusinessRules
         if (operationClaim is null)
             throw new BusinessException("This role does not exist");
     }
+    
+    public void OperationClaimShouldExistToUpdate(OperationClaim operationClaim)
+    {
+        if (operationClaim is null)
+            throw new BusinessException("This role does not exist");
+    }
 }
