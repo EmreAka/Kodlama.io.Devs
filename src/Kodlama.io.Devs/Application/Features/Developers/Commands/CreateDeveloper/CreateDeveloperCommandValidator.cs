@@ -6,9 +6,9 @@ public class CreateUserCommandValidator : AbstractValidator<CreateDeveloperComma
 {
     public CreateUserCommandValidator()
     {
-        RuleFor(d => d.Email).NotEmpty().NotNull().EmailAddress();
-        RuleFor(d => d.Password).NotEmpty().NotNull().MinimumLength(9);
-        RuleFor(d => d.FirstName).NotEmpty().NotNull();
-        RuleFor(d => d.LastName).NotEmpty().NotNull();
+        RuleFor(d => d.UserForRegisterDto.Email).NotEmpty().NotNull().EmailAddress();
+        RuleFor(d => d.UserForRegisterDto.Password).NotEmpty().NotNull().MinimumLength(9);
+        RuleFor(d => d.UserForRegisterDto.FirstName).NotEmpty().NotNull();
+        RuleFor(d => d.UserForRegisterDto.LastName).NotEmpty().NotNull();
     }
 }

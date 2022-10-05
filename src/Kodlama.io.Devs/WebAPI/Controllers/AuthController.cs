@@ -1,6 +1,8 @@
 ﻿using Application.Features.Developers.Commands.CreateDeveloper;
 using Application.Features.Developers.Commands.LoginDeveloper;
 using Application.Features.Developers.Queries.GetListUser;
+using Core.Security.Dtos;
+using Core.Security.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,11 +19,18 @@ namespace WebAPI.Controllers
             => _mediator = mediator;
 
         [HttpPost("signup")]
-        public async Task<IActionResult> Register([FromBody] CreateDeveloperCommand createDeveloperCommand)
+        public async Task<IActionResult> Register([FromBody] UserForRegisterDto userForRegisterDto)
         {
+            CreateDeveloperCommand createDeveloperCommand = new()
+            {
+                UserForRegisterDto = userForRegisterDto,
+                IpAddress = GetIpAddress()
+            };
 
-
-            var result = await _mediator.Send(createDeveloperCommand); return Ok(result);
+            var result = await _mediator.Send(createDeveloperCommand);
+            
+            SetRefreshTokenToCookie(result.RefreshToken);
+            return Created("", result.AccessToken);
         }
 
         [HttpPost("signin")]
@@ -38,6 +47,25 @@ namespace WebAPI.Controllers
             var result = await _mediator.Send(query);
 
             return Ok(result);
+        }
+        
+        private string? GetIpAddress()
+        {
+            if (Request.Headers.ContainsKey("X-Forwarded-For")) 
+                return Request.Headers["X-Forwarded-For"];
+            
+            return HttpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString();
+        }
+        
+        private void SetRefreshTokenToCookie(RefreshToken refreshToken)
+        {
+            CookieOptions cookieOptions = new()
+            {
+                HttpOnly = true,
+                Expires = DateTime.Now.AddDays(7)
+            };
+        
+            Response.Cookies.Append("refreshToken", refreshToken.Token, cookieOptions);
         }
     }
 }
