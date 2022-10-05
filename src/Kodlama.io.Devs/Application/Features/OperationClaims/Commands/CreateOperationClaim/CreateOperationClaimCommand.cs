@@ -7,14 +7,14 @@ using MediatR;
 
 namespace Application.Features.OperationClaims.Commands.CreateOperationClaim;
 
-public class CreateOperationClaimCommand : IRequest<CreatedOperationClaim>, ISecuredRequest
+public class CreateOperationClaimCommand : IRequest<CreatedOperationClaimDto>, ISecuredRequest
 {
     public string Role { get; set; }
     public string[] Roles { get; } = { "Admin" };
 
 
     public class
-        CreateOperationClaimCommandHandler : IRequestHandler<CreateOperationClaimCommand, CreatedOperationClaim>
+        CreateOperationClaimCommandHandler : IRequestHandler<CreateOperationClaimCommand, CreatedOperationClaimDto>
     {
         private readonly IOperationClaimRepository _operationClaimRepository;
         private readonly OperationClaimBusinessRules _operationClaimBusinessRules;
@@ -24,7 +24,7 @@ public class CreateOperationClaimCommand : IRequest<CreatedOperationClaim>, ISec
             => (_operationClaimRepository, _operationClaimBusinessRules) =
                 (operationClaimRepository, operationClaimBusinessRules);
 
-        public async Task<CreatedOperationClaim> Handle(CreateOperationClaimCommand request,
+        public async Task<CreatedOperationClaimDto> Handle(CreateOperationClaimCommand request,
             CancellationToken cancellationToken)
         {
             await _operationClaimBusinessRules.OperationClaimShouldNotDuplicatedWhenInserted(request.Role);
@@ -36,7 +36,7 @@ public class CreateOperationClaimCommand : IRequest<CreatedOperationClaim>, ISec
 
             var result = await _operationClaimRepository.AddAsync(operationClaim);
 
-            CreatedOperationClaim createdOperationClaim = new();
+            CreatedOperationClaimDto createdOperationClaim = new();
 
             return createdOperationClaim;
         }
