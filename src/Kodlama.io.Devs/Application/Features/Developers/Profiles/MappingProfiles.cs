@@ -4,9 +4,9 @@ using Core.Security.JWT;
 using Application.Features.Developers.Commands.CreateDeveloper;
 using Application.Features.Developers.Dtos;
 using Application.Features.Developers.Models;
+using Core.Domain.Entities;
 using Core.Persistence.Paging;
 using Core.Security.Dtos;
-using Core.Security.Entities;
 
 namespace Application.Features.Developers.Profiles;
 

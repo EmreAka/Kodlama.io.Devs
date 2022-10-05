@@ -1,5 +1,5 @@
-﻿using Core.Security.Entities;
-using Core.Security.Enums;
+﻿using Core.Domain.Entities;
+using Core.Domain.Enums;
 
 namespace Domain.Entities;
 
