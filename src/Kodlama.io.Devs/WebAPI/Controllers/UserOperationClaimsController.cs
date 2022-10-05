@@ -46,7 +46,7 @@ public class UserOperationClaimsController : Controller
         return Ok(result);
     }
     
-    [HttpGet("/{userId}")]
+    [HttpGet("{userId}")]
     public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest, [FromRoute]int userId)
     {
         GetListByUserIdUserOperationClaimQuery getListByUserIdUserOperationClaimQuery = new()
