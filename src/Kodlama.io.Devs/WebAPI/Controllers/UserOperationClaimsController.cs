@@ -1,5 +1,6 @@
 ﻿using Application.Features.UserOperationClaims.Commands.CreateUserOperationClaim;
 using Application.Features.UserOperationClaims.Commands.DeleteUserOperationClaim;
+using Application.Features.UserOperationClaims.Queries.GetByUserIdUserOperationClaim;
 using Application.Features.UserOperationClaims.Queries.GetListUserOperationClaim;
 using Core.Application.Requests;
 using MediatR;
@@ -41,6 +42,20 @@ public class UserOperationClaimsController : Controller
         };
         
         var result = await _mediator.Send(getListUserOperationClaimQuery);
+
+        return Ok(result);
+    }
+    
+    [HttpGet("/{userId}")]
+    public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest, [FromRoute]int userId)
+    {
+        GetListByUserIdUserOperationClaimQuery getListByUserIdUserOperationClaimQuery = new()
+        {
+            PageRequest = pageRequest,
+            UserId = userId
+        };
+        
+        var result = await _mediator.Send(getListByUserIdUserOperationClaimQuery);
 
         return Ok(result);
     }
