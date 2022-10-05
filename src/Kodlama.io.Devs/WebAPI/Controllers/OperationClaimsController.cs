@@ -1,6 +1,8 @@
 ﻿using Application.Features.OperationClaims.Commands.CreateOperationClaim;
 using Application.Features.OperationClaims.Commands.DeleteOperationClaim;
 using Application.Features.OperationClaims.Commands.UpdateOperationClaim;
+using Application.Features.OperationClaims.Queries.GetListOperationClaim;
+using Core.Application.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,6 +37,18 @@ public class OperationClaimsController : Controller
     public async Task<IActionResult> Update([FromBody] UpdateOperationClaimCommand updateOperationClaimCommand)
     {
         var result = await _mediator.Send(updateOperationClaimCommand);
+
+        return Ok(result);
+    }
+    
+    [HttpGet()]
+    public async Task<IActionResult> GetAll([FromQuery] PageRequest pageRequest)
+    {
+        var query = new GetListOperationClaimQuery()
+        {
+            PageRequest = pageRequest
+        };
+        var result = await _mediator.Send(query);
 
         return Ok(result);
     }
