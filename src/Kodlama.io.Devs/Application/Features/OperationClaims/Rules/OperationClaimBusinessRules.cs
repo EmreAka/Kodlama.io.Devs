@@ -1,5 +1,6 @@
 ﻿using Application.Services.Repositories;
 using Core.CrossCuttingConcerns.Exceptions;
+using Core.Domain.Entities;
 
 namespace Application.Features.OperationClaims.Rules;
 
@@ -19,11 +20,9 @@ public class OperationClaimBusinessRules
             throw new BusinessException("This role already exists");
     }
 
-    public async Task OperationClaimShouldExistToDelete(int id)
+    public void OperationClaimShouldExistToDelete(OperationClaim operationClaim)
     {
-        var result = await _operationClaimRepository.GetAsync(o => o.Id == id);
-
-        if (result is null)
+        if (operationClaim is null)
             throw new BusinessException("This role does not exist");
     }
 }

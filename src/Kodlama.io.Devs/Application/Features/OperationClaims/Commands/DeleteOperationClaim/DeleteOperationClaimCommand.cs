@@ -26,12 +26,8 @@ public class DeleteOperationClaimCommand : IRequest<DeletedOperationClaimDto>, I
         public async Task<DeletedOperationClaimDto> Handle(DeleteOperationClaimCommand request,
             CancellationToken cancellationToken)
         {
-            await _operationClaimBusinessRules.OperationClaimShouldExistToDelete(request.Id);
-            
-            var operationClaim = new OperationClaim()
-            {
-                Id = request.Id
-            };
+            var operationClaim = await _operationClaimRepository.GetAsync(o => o.Id == request.Id);
+            _operationClaimBusinessRules.OperationClaimShouldExistToDelete(operationClaim);
 
             var result = await _operationClaimRepository.DeleteAsync(operationClaim);
 
