@@ -18,4 +18,12 @@ public class OperationClaimBusinessRules
         if (result is not null)
             throw new BusinessException("This role already exists");
     }
+
+    public async Task OperationClaimShouldExistToDelete(int id)
+    {
+        var result = await _operationClaimRepository.GetAsync(o => o.Id == id);
+
+        if (result is null)
+            throw new BusinessException("This role does not exist");
+    }
 }
