@@ -1,4 +1,4 @@
-﻿namespace Core.Persistence.Repositories;
+﻿namespace Core.Domain.Entities;
 
 public class Entity
 {

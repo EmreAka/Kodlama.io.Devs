@@ -3,7 +3,7 @@ using Application.Services.Repositories;
 using Application.Features.Developers.Rules;
 using Application.Services.AuthService;
 using AutoMapper;
-using Core.Security.Entities;
+using Core.Domain.Entities;
 using Core.Security.Hashing;
 using Core.Security.JWT;
 using Domain.Entities;

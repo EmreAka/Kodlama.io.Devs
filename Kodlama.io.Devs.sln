@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "src\Kodlama.io.De
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kodlama.io.Devs", "Kodlama.io.Devs", "{9822FAE5-8A0F-49B2-BCE0-A7395CFE431D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Domain", "src\corePackages\Core.Domain\Core.Domain.csproj", "{7F109906-9C5F-47BD-A6B7-D8BEC5B3AFBB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{913F1A0E-F989-41BE-A7BF-DBD5D7958383}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{913F1A0E-F989-41BE-A7BF-DBD5D7958383}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{913F1A0E-F989-41BE-A7BF-DBD5D7958383}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F109906-9C5F-47BD-A6B7-D8BEC5B3AFBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F109906-9C5F-47BD-A6B7-D8BEC5B3AFBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F109906-9C5F-47BD-A6B7-D8BEC5B3AFBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F109906-9C5F-47BD-A6B7-D8BEC5B3AFBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,6 +107,7 @@ Global
 		{A6B274FF-0466-4467-B211-BE8B2F5AC5DA} = {9822FAE5-8A0F-49B2-BCE0-A7395CFE431D}
 		{20615AD5-DD56-462B-BAE6-A918B931102A} = {9822FAE5-8A0F-49B2-BCE0-A7395CFE431D}
 		{913F1A0E-F989-41BE-A7BF-DBD5D7958383} = {9822FAE5-8A0F-49B2-BCE0-A7395CFE431D}
+		{7F109906-9C5F-47BD-A6B7-D8BEC5B3AFBB} = {5EF0B7E7-D455-4AAA-9ADE-2733D810CB48}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7995240D-26EB-4C56-8DF6-BC7349381D7A}

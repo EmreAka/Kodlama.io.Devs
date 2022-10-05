@@ -1,5 +1,4 @@
-﻿using Core.Persistence.Repositories;
-
+﻿using Core.Domain.Entities;
 namespace Domain.Entities;
 
 public class GitHubProfile : Entity

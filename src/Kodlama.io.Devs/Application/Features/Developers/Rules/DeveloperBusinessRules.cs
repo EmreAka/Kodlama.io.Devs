@@ -1,7 +1,7 @@
-using Core.Security.Entities;
 using Core.Security.Hashing;
 using Core.CrossCuttingConcerns.Exceptions;
 using Application.Services.Repositories;
+using Core.Domain.Entities;
 
 namespace Application.Features.Developers.Rules;
 

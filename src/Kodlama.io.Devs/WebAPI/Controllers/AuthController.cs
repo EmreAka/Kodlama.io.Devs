@@ -1,8 +1,8 @@
 ﻿using Application.Features.Developers.Commands.CreateDeveloper;
 using Application.Features.Developers.Commands.LoginDeveloper;
 using Application.Features.Developers.Queries.GetListUser;
+using Core.Domain.Entities;
 using Core.Security.Dtos;
-using Core.Security.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
