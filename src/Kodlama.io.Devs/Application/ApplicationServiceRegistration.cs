@@ -12,6 +12,7 @@ using Core.Application.Pipelines.Authorization;
 using Application.Features.Technologies.Rules;
 using Application.Features.UserOperationClaims.Rules;
 using Application.Services.AuthService;
+using Core.Application.Pipelines.Caching;
 
 namespace Application;
 
@@ -29,13 +30,17 @@ public static class ApplicationServiceRegistration
         services.AddScoped<OperationClaimBusinessRules>();
         services.AddScoped<UserOperationClaimBusinessRules>();
         services.AddScoped<IAuthService, AuthManager>();
+
+        services.AddDistributedMemoryCache();
         
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AuthorizationBehavior<,>));
-
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CacheRemovingBehavior<,>));
+        
         return services;
     }
 }
